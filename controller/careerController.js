@@ -1,9 +1,10 @@
-const careerModel = require("../models/contactModel")
+const careerModel = require("../models/careerModel")
 const careerValidationSchema = require("../validation/careerValidation")
-const { firmTemplate, userTemplate } = require("../templates/contactTemplate")
-const sendMail = require("../utils/sendMail")
+const { firmTemplate, userTemplate } = require("../templates/careerTeamplate")
+const { sendMail } = require("../utils/sendMail")
 const addApplication = async (req, res) => {
     try {
+        console.log(req)
         const firmMail = process?.env?.firmMail
         let { jobTitle,
             fullName,
@@ -13,6 +14,7 @@ const addApplication = async (req, res) => {
             expectedCtc,
             currentCtc,
             noticePeriod } = req.body
+
         let { error, value } = careerValidationSchema.validate({
             jobTitle,
             fullName,
@@ -23,6 +25,8 @@ const addApplication = async (req, res) => {
             currentCtc,
             noticePeriod
         })
+        console.log("this is running")
+
         if (error) {
             return res.status(403).json({ isSuccess: false, message: "Validation error", error })
         }
@@ -44,7 +48,6 @@ const addApplication = async (req, res) => {
         if (isSaved) {
             const userSubject = "Your Application has been submitted"
             const firmSubject = "New Career Application has been recieved"
-            res.status(201).json({ isSuccess: true, message: "Application added successfully" })
             await Promise.all([
                 sendMail(firmMail, email, userSubject, userTemplate({ fullName })),
                 sendMail(firmMail, firmMail, firmSubject, firmTemplate({
@@ -56,10 +59,15 @@ const addApplication = async (req, res) => {
                     expectedCtc,
                     currentCtc,
                     noticePeriod
-                })),
+                }), [{
+                    filename:req?.files?.resume?.name,          // e.g., 'Resume.pdf'
+                    content:req?.files?.resume?.data,           // Buffer
+                    contentType:req?.files?.resume?.mimetype    
+                }]),
 
             ])
-            return
+            return res.status(201).json({ isSuccess: true, message: "Application added successfully" })
+
         } else {
             return res.status(400).json({ isSuccess: false, message: "Error while inserting new application " })
         }

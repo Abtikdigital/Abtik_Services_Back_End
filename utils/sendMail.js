@@ -11,16 +11,16 @@ const transporter = nodemailer.createTransport({
 
 
 
-const sendMail = async (from, to, subject, template) => {
+const sendMail = async (from, to, subject, template,attachments) => {
     try {
-        let isSended = transporter.sendMail({ to, from, subject, html: template })
+        let isSended =await transporter.sendMail({ to, from, subject, html: template,attachments})
         if (isSended) {
             console.log("Mail Sended Successfully")
         } else {
             console.log("Error while sending mail")
         }
     } catch (error) {
-
+console.log(error)
     }
 }
 module.exports = { sendMail }

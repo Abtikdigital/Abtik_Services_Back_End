@@ -2,14 +2,14 @@
 const firmTemplate = (userInfo) => {
   try {
     let {
-      fullName,
       jobTitle,
-      email,
-      contactNumber,
-      experience,
-      expectedCtc,
-      currentCtc,
-      noticePeriod,
+fullName,
+email,
+contactNumber,
+experience,
+expectedCtc,
+currentCtc,
+noticePeriod
     } = userInfo;
     return `
     <!DOCTYPE html>
@@ -195,7 +195,7 @@ const firmTemplate = (userInfo) => {
                 <th>Notice Period</th>
                 <td>${noticePeriod}</td>
               </tr>
-              <tr>
+            <tr>
                 <th>Submission Date</th>
                 <td>${new Date().toLocaleDateString()}</td>
               </tr>

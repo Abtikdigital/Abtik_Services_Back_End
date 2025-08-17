@@ -8,8 +8,8 @@ const careerValidationSchema = joi.object({
     email: joi.string().required(),
     contactNumber: joi.string().required(),
     experience: joi.string().required(),
-    currentCTC: joi.string().required(),
-    expectedCTC: joi.string().required(),
+    currentCtc: joi.string().required(),
+    expectedCtc: joi.string().required(),
     noticePeriod: joi.string().required()
 })
 

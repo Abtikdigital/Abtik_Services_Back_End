@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const fileUpload = require('express-fileupload');
 
 require("dotenv").config();
 require("./config/dbConfig");
@@ -12,6 +13,7 @@ const app = express();
 app.use(cors({
     origin:process?.env?.FRONT_END_URL
 }))
+app.use(fileUpload())
 app.use(express.json())
 app.use("/contact", contactRouter);
 app.use("/career",careerRouter)
