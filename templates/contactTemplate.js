@@ -1,6 +1,6 @@
 // FIRM TEMPLATE
 const firmTemplate = (data) => {
-  let { name, email, message,number } = data;
+  let { name, email, message, number, companyName,serviceType } = data;
 
   return `
     <!DOCTYPE html>
@@ -171,10 +171,21 @@ const firmTemplate = (data) => {
                 <td><a href="mailto:${email}">${email}</a></td>
               </tr>
               <tr>
+                <th>Company Name</th>
+                <td>${companyName}</td>
+              </tr>
+              <tr>
                 <tr>
                 <th>Number </th>
                 <td><a href="tel:+91${number}">${number}</a></td>
               </tr>
+
+                  <tr>
+                <tr>
+                <th>Service Type </th>
+                <td>${serviceType}</td>
+              </tr>
+              
               <tr>
                 <th>Message</th>
                 <td class="message-cell">${message}</td>
@@ -194,7 +205,7 @@ const firmTemplate = (data) => {
 // USER TEMPLATE
 const userTemplate = (data) => {
   let { name, email, message } = data;
-  
+
   return `
     <!DOCTYPE html>
     <html>
@@ -374,5 +385,4 @@ const userTemplate = (data) => {
   `;
 };
 
-
-module.exports={userTemplate,firmTemplate}
+module.exports = { userTemplate, firmTemplate };

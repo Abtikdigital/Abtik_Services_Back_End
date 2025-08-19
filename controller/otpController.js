@@ -33,7 +33,6 @@ const addOtpDeatils = async (req, res) => {
       .findOne({ email, serviceType })
       .sort({ createdAt: -1 });
 
-  
     if (isServiceAndEmailExist) {
       const lastCreatedDate = new Date(isServiceAndEmailExist.createdAt);
       const nextAllowedDate = new Date(
@@ -95,9 +94,7 @@ const verifyOtp = async (req, res) => {
     const { enteredOtp } = req.body;
     const firmMail = process?.env?.firmMail;
 
-   
     const token = req?.cookies?.otpToken;
-    
 
     if (!token) {
       return res
@@ -131,7 +128,8 @@ const verifyOtp = async (req, res) => {
     const isSaved = await newContactData.save();
 
     if (isSaved) {
-      const { name, email, number, message } = otpData.contactData;
+      const { name, email, number, message, companyName, serviceType } =
+        otpData.contactData;
 
       res.clearCookie("otpToken");
       await otpModel.deleteOne({ _id: isValidToken?._id });
@@ -150,7 +148,14 @@ const verifyOtp = async (req, res) => {
           firmMail,
           firmMail,
           firmSubject,
-          firmTemplate({ name, email, number, message })
+          firmTemplate({
+            name,
+            email,
+            number,
+            message,
+            companyName,
+            serviceType,
+          })
         ),
       ]);
 
