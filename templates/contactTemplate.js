@@ -1,6 +1,6 @@
 // FIRM TEMPLATE
 const firmTemplate = (data) => {
-  let { name, email, message, number, companyName,serviceType } = data;
+  let { name, email, message, number, companyName, serviceType } = data;
 
   return `
     <!DOCTYPE html>
@@ -364,7 +364,14 @@ const userTemplate = (data) => {
             
             <p>In the meantime, feel free to explore our website for more information about our comprehensive range of services and solutions.</p>
             
-            <center><a href="https://www.abtikservices.com" class="button">Visit Our Website</a></center>
+ <center>
+  <a href="https://www.abtikservices.com" 
+     class="button" 
+     style="color: #ffffff; text-decoration: none;">
+    Visit Our Website
+  </a>
+</center>
+
             
             <div class="divider"></div>
             
@@ -372,9 +379,9 @@ const userTemplate = (data) => {
           </div>
           <div class="footer">
             <div class="social-links">
-              <a href="#">Facebook</a> • 
-              <a href="#">Instagram</a> • 
-              <a href="#">LinkedIn</a>
+              <a href="https://www.facebook.com/share/1aKQvTf7NU">Facebook</a> • 
+              <a href="https://www.instagram.com/abtikservices?igsh=MTk3cWxteWswbTFidQ==">Instagram</a> • 
+              <a href="https://www.linkedin.com/company/abtik-services">LinkedIn</a>
             </div>
             Thank you for choosing Abtik Services.
             <span class="footer-note">© 2025 Abtik Services. All rights reserved.</span>

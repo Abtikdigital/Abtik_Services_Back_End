@@ -3,13 +3,13 @@ const firmTemplate = (userInfo) => {
   try {
     let {
       jobTitle,
-fullName,
-email,
-contactNumber,
-experience,
-expectedCtc,
-currentCtc,
-noticePeriod
+      fullName,
+      email,
+      contactNumber,
+      experience,
+      expectedCtc,
+      currentCtc,
+      noticePeriod,
     } = userInfo;
     return `
     <!DOCTYPE html>
@@ -368,15 +368,22 @@ const userTemplate = (userInfo) => {
               <p>We will contact you within 24-48 business hours if your profile matches our requirements. Thank you for your interest in joining our team!</p>
             </div>
             <p>In the meantime, feel free to explore our website for more information about our company and opportunities.</p>
-            <center><a href="https://www.abtikservices.com" class="button">Visit Our Website</a></center>
+            <center>
+  <a href="https://www.abtikservices.com" 
+     class="button" 
+     style="color: #ffffff; text-decoration: none;">
+    Visit Our Website
+  </a>
+</center>
+
             <div class="divider"></div>
             <p>If you have any urgent questions, please don't hesitate to contact us.</p>
           </div>
           <div class="footer">
             <div class="social-links">
-              <a href="#">LinkedIn</a> • 
-              <a href="#">Instagram</a> • 
-              <a href="#">Facebook</a>
+              <a href="https://www.linkedin.com/company/abtik-services">LinkedIn</a> • 
+              <a href="https://www.instagram.com/abtikservices?igsh=MTk3cWxteWswbTFidQ==">Instagram</a> • 
+              <a href="https://www.facebook.com/share/1aKQvTf7NU">Facebook</a>
             </div>
             Thank you for choosing Abtik Services.
             <span class="footer-note">© 2025 Abtik Services. All rights reserved.</span>
@@ -390,4 +397,4 @@ const userTemplate = (userInfo) => {
   }
 };
 
-module.exports={firmTemplate,userTemplate}
+module.exports = { firmTemplate, userTemplate };

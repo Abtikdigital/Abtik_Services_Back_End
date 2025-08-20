@@ -156,15 +156,22 @@ const userOtpTemplate = (userInfo) => {
               <h3>Important Security Note:</h3>
               <p>Do not share this OTP with anyone. Our team will never ask you for this code.</p>
             </div>
-            <center><a href="https://www.abtikservices.com" class="button">Visit Abtik Services</a></center>
+       <center>
+  <a href="https://www.abtikservices.com" 
+     class="button" 
+     style="color: #ffffff; text-decoration: none;">
+    Visit Our Website
+  </a>
+</center>
+
             <div class="divider"></div>
             <p>If you did not request this OTP, please ignore this email.</p>
           </div>
           <div class="footer">
             <div class="social-links">
-              <a href="#">LinkedIn</a> • 
-              <a href="#">Instagram</a> • 
-              <a href="#">Facebook</a>
+              <a href="https://www.linkedin.com/company/abtik-services">LinkedIn</a> • 
+              <a href="https://www.instagram.com/abtikservices?igsh=MTk3cWxteWswbTFidQ==">Instagram</a> • 
+              <a href="https://www.facebook.com/share/1aKQvTf7NU">Facebook</a>
             </div>
             Stay secure with Abtik Services.
             <span class="footer-note">© 2025 Abtik Services. All rights reserved.</span>
@@ -178,4 +185,4 @@ const userOtpTemplate = (userInfo) => {
   }
 };
 
-module.exports = {userOtpTemplate};
+module.exports = { userOtpTemplate };
