@@ -66,7 +66,9 @@ const addOtpDeatils = async (req, res) => {
 
       res.cookie("otpToken", token, {
         httpOnly: true,
-        secure: true,
+        secure: true, // required for HTTPS (Netlify is HTTPS by default)
+        sameSite: "None",
+
         maxAge: 150000,
       });
 
