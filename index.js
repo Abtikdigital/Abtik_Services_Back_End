@@ -15,8 +15,8 @@ const app = express();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: process?.env?.FRONT_END_URL,
-    credentials:true
+    origin: [process?.env?.FRONT_END_URL, process?.env?.SECONDARY_DOMAIN],
+    credentials: true,
   })
 );
 app.use(fileUpload());
