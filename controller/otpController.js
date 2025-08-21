@@ -64,17 +64,10 @@ const addOtpDeatils = async (req, res) => {
         userOtpTemplate({ otp, name })
       );
 
-      res.cookie("otpToken", token, {
-        httpOnly: true,
-        secure: true, // required for HTTPS (Netlify is HTTPS by default)
-        sameSite: "None",
-
-        maxAge: 150000,
-      });
-
       return res.status(201).json({
         isSuccess: true,
         message: "Otp has been sent successfully",
+        token: token, // Return token in response body
       });
     } else {
       return res.status(400).json({
@@ -93,10 +86,8 @@ const addOtpDeatils = async (req, res) => {
 
 const verifyOtp = async (req, res) => {
   try {
-    const { enteredOtp } = req.body;
+    const { enteredOtp, token } = req.body; // Get token from request body instead of cookies
     const firmMail = process?.env?.firmMail;
-
-    const token = req?.cookies?.otpToken;
 
     if (!token) {
       return res
@@ -133,7 +124,7 @@ const verifyOtp = async (req, res) => {
       const { name, email, number, message, companyName, serviceType } =
         otpData.contactData;
 
-      res.clearCookie("otpToken");
+      // Delete the OTP record after successful verification
       await otpModel.deleteOne({ _id: isValidToken?._id });
 
       const userSubject = "Your contact has been submitted";
