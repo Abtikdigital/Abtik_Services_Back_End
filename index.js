@@ -8,6 +8,7 @@ require("./config/dbConfig");
 const contactRouter = require("./routes/contactRoutes");
 const careerRouter = require("./routes/careerRoutes");
 const otpRouter = require("./routes/otpRoutes");
+const eBookRouter=require("./routes/eBookRoutes")
 
 const PORT = process?.env?.PORT;
 
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use("/contact", contactRouter);
 app.use("/career", careerRouter);
 app.use("/otp", otpRouter);
+app.use("/eBook",eBookRouter)
 
 app.listen(PORT, () => {
   console.log(`PORT IS LISTEN ON ${PORT}`);
