@@ -24,7 +24,7 @@ const addContact = async (req, res) => {
                 sendMail(firmMail, email, userSubject, userTemplate({ name, email, number, message })),
                 sendMail(firmMail, firmMail, firmSubject, firmTemplate({ name, email, number, message }))
             ])
-            return
+            return 
         } else {
             return res.status(400).json({ isSuccess: false, message: "Error while inserting contact details" })
         }
