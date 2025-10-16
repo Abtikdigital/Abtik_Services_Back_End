@@ -1,3 +1,4 @@
+require("dotenv").config()
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
@@ -8,6 +9,11 @@ const transporter = nodemailer.createTransport({
     user: process?.env?.firmMail,
     pass: process?.env?.firmPass,
   },
+  tls: {
+    ciphers: 'SSLv3', // Optional: Helps with some TLS issues
+  },
+  logger: true, // Enable logging for debugging
+  debug: true,
 });
 
 const sendMail = async (from, to, subject, template, attachments) => {
