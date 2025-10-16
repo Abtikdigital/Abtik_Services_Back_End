@@ -4,7 +4,7 @@ const { sendMail } = require("../utils/sendMail")
 const contactValidationSchema = require("../validation/contactValidation")
 const addContact = async (req, res) => {
     try {
-        console.log("this is env",process?.env)
+     
         const firmMail = process?.env?.firmMail
         let { name, email, number, message, companyName, serviceType } = req.body
         
