@@ -1,11 +1,9 @@
 const express=require("express")
-const {addOtpDeatils,verifyOtp}=require("../controller/otpController")
+const {addContactDetails}=require("../controller/otpController")
 
 const Router=express.Router()
 
-Router.post("/addOtpDetails",addOtpDeatils)
-Router.post("/verifyOtp",verifyOtp)
-
+Router.post("/addContactDetails",addContactDetails)
 
 module.exports=Router
 
