@@ -1,46 +1,45 @@
 require("dotenv").config();
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
-// ✅ Create and configure the transporter
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST_NAME,
-  port: Number(process.env.SMTP_PORT), // convert string to number
-  secure: process.env.SMTP_SECURE === "true", // convert string to boolean
-  auth: {
-    user: process.env.firmMail,
-    pass: process.env.firmPass.replace(/"/g, ""), // remove accidental quotes
-  },
-  tls: {
-    rejectUnauthorized: false, // useful for local SSL issues
-  },
-  logger: true, // enable Nodemailer logs
-  debug: true,  // show SMTP communication details
-});
+// ✅ Environment Variables Required for Resend:
+// - RESEND_API_KEY: Your Resend API key (get from https://resend.com/api-keys)
+// - firmMail: Your verified sender email address (must be verified in Resend dashboard)
 
-// ✅ Verify SMTP connection
-transporter.verify(function (error, success) {
-  if (error) {
-    console.error("❌ SMTP Connection Error:", error.message);
-  } else {
-    console.log("✅ SMTP Server is ready to send emails");
+// ✅ Initialize Resend client
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+// ✅ Verify Resend API key
+const verifyResendConnection = async () => {
+  try {
+    // Test the API key by attempting to get account info
+    await resend.domains.list();
+    console.log("✅ Resend API is ready to send emails");
+  } catch (error) {
+    console.error("❌ Resend API Error:", error.message);
   }
-});
+};
 
 // ✅ Main reusable mail function
 const sendMail = async (from, to, subject, template, attachments) => {
   try {
-    const info = await transporter.sendMail({
+    const emailData = {
       from,
       to,
       subject,
       html: template,
-      attachments,
-    });
+    };
 
-    if (info?.messageId) {
-      console.log("✅ Mail Sent Successfully:", info.messageId);
+    // Add attachments if provided
+    if (attachments && attachments.length > 0) {
+      emailData.attachments = attachments;
+    }
+
+    const data = await resend.emails.send(emailData);
+
+    if (data?.id) {
+      console.log("✅ Mail Sent Successfully:", data.id);
     } else {
-      console.log("⚠️ Mail sent but no messageId received");
+      console.log("⚠️ Mail sent but no ID received");
     }
   } catch (error) {
     console.error("❌ Error while sending mail:", error.message);
@@ -51,17 +50,20 @@ const sendMail = async (from, to, subject, template, attachments) => {
 (async () => {
   if (process.env.NODE_ENV !== "production") {
     try {
-      const info = await transporter.sendMail({
+      const data = await resend.emails.send({
         from: process.env.firmMail,
         to: process.env.firmMail, // send to self for test
-        subject: "Test Email from Abtik Backend (Hostinger SMTP)",
-        html: "<h3>Hello 👋</h3><p>This is a test email from your local server.</p>",
+        subject: "Test Email from Abtik Backend (Resend)",
+        html: "<h3>Hello 👋</h3><p>This is a test email from your local server using Resend.</p>",
       });
-      console.log("✅ Test Mail Sent:", info.messageId);
+      console.log("✅ Test Mail Sent:", data.id);
     } catch (error) {
       console.error("❌ Test Mail Error:", error.message);
     }
   }
 })();
+
+// Verify connection on startup
+verifyResendConnection();
 
 module.exports = { sendMail };
