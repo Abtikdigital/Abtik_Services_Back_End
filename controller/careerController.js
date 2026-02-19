@@ -6,6 +6,7 @@ const addApplication = async (req, res) => {
     try {
         console.log(req)
         const firmMail = process?.env?.firmMail
+        const hrMail = process?.env?.HR_MAIL
         let { jobTitle,
             fullName,
             email,
@@ -48,9 +49,12 @@ const addApplication = async (req, res) => {
         if (isSaved) {
             const userSubject = "Your Application has been submitted"
             const firmSubject = "New Career Application has been recieved"
+            if (!hrMail) {
+                return res.status(500).json({ isSuccess: false, message: "HR_MAIL is not configured" })
+            }
             await Promise.all([
                 sendMail(firmMail, email, userSubject, userTemplate({ fullName })),
-                sendMail(firmMail, firmMail, firmSubject, firmTemplate({
+                sendMail(firmMail, hrMail, firmSubject, firmTemplate({
                     jobTitle,
                     fullName,
                     email,
