@@ -628,6 +628,7 @@ const userTemplate = (data) => {
       </body>
     </html>
   `;
+  
 };
 
 module.exports = { userTemplate, firmTemplate };
